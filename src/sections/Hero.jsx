@@ -1,5 +1,4 @@
 import { siteContent } from '../data/siteContent'
-import ThreeCircles from '../components/ThreeCircles'
 
 export default function Hero() {
   const { hero } = siteContent
@@ -26,9 +25,17 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero-aside" aria-hidden="true">
-          <ThreeCircles size={112} animated className="hero-circles" />
-          <span className="hero-aside-ring" />
+        <div className="hero-aside">
+          <img
+            className="hero-portrait"
+            src="/val1.png"
+            alt="Portrait of Valerie Osuamkpe"
+            width="680"
+            height="850"
+            fetchpriority="high"
+          />
+          <span className="hero-outline hero-outline-a" aria-hidden="true" />
+          <span className="hero-outline hero-outline-b" aria-hidden="true" />
         </div>
       </div>
     </section>

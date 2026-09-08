@@ -48,7 +48,7 @@ export const siteContent = {
       'She is especially interested in taking complex or ambiguous problems and turning them into clear, usable experiences.',
     ],
     portraitAlt: 'Portrait of Valerie Osuamkpe',
-    portraitPath: '/assets/valerie-osuamkpe-portrait/portrait.jpg',
+    portraitPath: '/val2.png',
   },
 
   articles: {

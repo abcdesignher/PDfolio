@@ -27,7 +27,7 @@
     padding-block: var(--space-10);
   }
   .hero-inner {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 
@@ -59,7 +59,6 @@
 
 .hero-aside {
   position: relative;
-  min-height: 220px;
   display: none;
 }
 
@@ -69,22 +68,71 @@
   }
 }
 
-.hero-circles {
-  position: absolute;
-  right: 8%;
-  top: 8%;
-  transform: rotate(-6deg);
+.hero-portrait {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  max-height: min(72vh, 720px);
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
-.hero-aside-ring {
+@supports (aspect-ratio: 1) {
+  .hero-portrait {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.hero-outline {
   position: absolute;
-  right: -10%;
-  bottom: -20%;
-  width: 320px;
-  height: 320px;
   border-radius: 50%;
-  border: 1px solid var(--border-strong);
+  border: 2px solid var(--accent-strong);
+  opacity: 0.7;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-outline-a {
+  width: 220px;
+  height: 220px;
+  top: -36px;
+  right: -36px;
+}
+
+.hero-outline-a::after {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-strong);
   opacity: 0.5;
+}
+
+.hero-outline-b {
+  width: 160px;
+  height: 160px;
+  bottom: -44px;
+  left: -28px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-outline-a {
+    animation: hero-ring 16s ease-in-out infinite alternate;
+  }
+  .hero-outline-b {
+    animation: hero-ring 20s ease-in-out infinite alternate-reverse;
+  }
+}
+
+@keyframes hero-ring {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  to {
+    transform: translate3d(4px, -6px, 0) rotate(10deg) scale(1.04);
+  }
 }
 
 /* ---------- Project list ---------- */

@@ -1,0 +1,121 @@
+@import './tokens.css';
+
+/* ---------- Three circles motif ---------- */
+
+.three-circles {
+  display: inline-block;
+  position: relative;
+}
+
+.tc-circle {
+  position: absolute;
+  display: block;
+}
+
+.tc-circle-1 {
+  background: var(--accent);
+}
+
+.tc-circle-2 {
+  background: var(--text-strong);
+}
+
+.tc-circle-outline {
+  border-color: var(--accent-strong) !important;
+}
+
+.tc-drifting {
+  animation: tc-drift 14s ease-in-out infinite alternate;
+}
+
+.tc-drifting.tc-circle-2 {
+  animation-duration: 18s;
+}
+
+.tc-drifting.tc-circle-outline {
+  animation-duration: 22s;
+}
+
+@keyframes tc-drift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(4px, -6px, 0) rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tc-drifting {
+    animation: none;
+  }
+}
+
+/* ---------- Circle cutting through text ---------- */
+
+.circle-text {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.circle-text-label {
+  position: relative;
+  z-index: 2;
+}
+
+.circle-text-motif {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.circle-text-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.62;
+}
+
+.circle-text-circle-1 {
+  width: 0.52em;
+  height: 0.52em;
+  left: -0.18em;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--accent);
+}
+
+.circle-text-circle-2 {
+  width: 0.42em;
+  height: 0.42em;
+  left: 0.22em;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--text-strong);
+}
+
+.circle-text-circle-3 {
+  width: 0.3em;
+  height: 0.3em;
+  right: -0.14em;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 2px solid var(--text-strong);
+}
+
+.circle-text-sm .circle-text-circle-1 {
+  width: 0.46em;
+  height: 0.46em;
+}
+
+.circle-text-sm .circle-text-circle-2 {
+  width: 0.34em;
+  height: 0.34em;
+}
+
+.circle-text-sm .circle-text-circle-3 {
+  width: 0.24em;
+  height: 0.24em;
+}

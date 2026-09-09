@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react'
 
 const MAX_STARS = 150
+const MAX_RINGS = 36
 const TRAIL_LEN = 9
 const STROKE = '172, 214, 254'
+const CORE = '7, 54, 122'
 
 function starPath(ctx, x, y, r) {
   const spikes = 4
@@ -65,8 +67,10 @@ export default function CursorFX() {
     let w = 0
     let h = 0
     const stars = []
+    const rings = []
     const pointer = { x: 0, y: 0, active: false }
     let lastSpawn = { x: 0, y: 0 }
+    let lastRing = { x: 0, y: 0 }
     let raf = 0
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
 
@@ -79,9 +83,10 @@ export default function CursorFX() {
       canvas.style.height = `${h}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       stars.length = 0
+      rings.length = 0
     }
 
-    function spawn(x, y) {
+    function spawnStar(x, y) {
       const angle = Math.random() * Math.PI * 2
       const speed = 0.25 + Math.random() * 0.6
       stars.push({
@@ -95,6 +100,11 @@ export default function CursorFX() {
       if (stars.length > MAX_STARS) stars.shift()
     }
 
+    function spawnRing(x, y) {
+      rings.push({ x, y, r: 8, life: 1 })
+      if (rings.length > MAX_RINGS) rings.shift()
+    }
+
     function onMove(e) {
       pointer.x = e.clientX
       pointer.y = e.clientY
@@ -103,10 +113,25 @@ export default function CursorFX() {
       const dy = e.clientY - lastSpawn.y
       const dist = Math.sqrt(dx * dx + dy * dy)
       if (dist > 14) {
-        spawn(e.clientX, e.clientY)
-        if (dist > 40) spawn(e.clientX, e.clientY)
+        spawnStar(e.clientX, e.clientY)
+        if (dist > 40) spawnStar(e.clientX, e.clientY)
         lastSpawn = { x: e.clientX, y: e.clientY }
       }
+      const rdx = e.clientX - lastRing.x
+      const rdy = e.clientY - lastRing.y
+      const rdist = Math.sqrt(rdx * rdx + rdy * rdy)
+      if (rdist > 34) {
+        spawnRing(e.clientX, e.clientY)
+        lastRing = { x: e.clientX, y: e.clientY }
+      }
+    }
+
+    function onDown(e) {
+      pointer.x = e.clientX
+      pointer.y = e.clientY
+      pointer.active = true
+      spawnRing(e.clientX, e.clientY)
+      spawnRing(e.clientX, e.clientY)
     }
 
     function isDark() {
@@ -114,9 +139,11 @@ export default function CursorFX() {
     }
 
     function frame() {
-      if (isDark()) {
-        const t = performance.now()
-        ctx.clearRect(0, 0, w, h)
+      const dark = isDark()
+      const t = performance.now()
+      ctx.clearRect(0, 0, w, h)
+
+      if (dark) {
         ctx.globalCompositeOperation = 'lighter'
 
         for (let s = 0; s < stars.length; s++) {
@@ -182,7 +209,47 @@ export default function CursorFX() {
           if (stars[s].life <= 0) stars.splice(s, 1)
         }
       } else {
-        ctx.clearRect(0, 0, w, h)
+        ctx.globalCompositeOperation = 'source-over'
+
+        for (let r = rings.length - 1; r >= 0; r--) {
+          const ring = rings[r]
+          ring.r += 2.4
+          ring.life -= 0.018
+          if (ring.life <= 0) {
+            rings.splice(r, 1)
+            continue
+          }
+          ctx.strokeStyle = `rgba(${CORE}, ${ring.life * 0.4})`
+          ctx.lineWidth = 1.3
+          ctx.beginPath()
+          ctx.arc(ring.x, ring.y, ring.r, 0, Math.PI * 2)
+          ctx.stroke()
+          ctx.strokeStyle = `rgba(${STROKE}, ${ring.life * 0.5})`
+          ctx.lineWidth = 1
+          ctx.beginPath()
+          ctx.arc(ring.x, ring.y, Math.max(1, ring.r - 6), 0, Math.PI * 2)
+          ctx.stroke()
+        }
+
+        if (pointer.active) {
+          ctx.globalAlpha = 0.7
+          ctx.drawImage(
+            sprites.glow,
+            0,
+            0,
+            sprites.size,
+            sprites.size,
+            pointer.x - 20,
+            pointer.y - 20,
+            40,
+            40,
+          )
+          ctx.globalAlpha = 1
+          ctx.fillStyle = `rgba(${CORE}, 0.95)`
+          ctx.beginPath()
+          ctx.arc(pointer.x, pointer.y, 4, 0, Math.PI * 2)
+          ctx.fill()
+        }
       }
 
       raf = requestAnimationFrame(frame)
@@ -190,6 +257,7 @@ export default function CursorFX() {
 
     window.addEventListener('resize', resize)
     window.addEventListener('pointermove', onMove, { passive: true })
+    window.addEventListener('pointerdown', onDown, { passive: true })
     resize()
     raf = requestAnimationFrame(frame)
 
@@ -197,6 +265,7 @@ export default function CursorFX() {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
       window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerdown', onDown)
     }
   }, [])
 

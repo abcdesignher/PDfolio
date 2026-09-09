@@ -200,6 +200,28 @@
   margin: var(--space-3) var(--space-4) var(--space-5);
 }
 
+/* ---------- Cursor constellation FX (dark mode only) ---------- */
+
+.cursor-fx {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;
+}
+
+html[data-theme='dark'] .cursor-fx {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-fx {
+    display: none !important;
+  }
+}
+
 /* ---------- Footer ---------- */
 
 .footer {

@@ -6,7 +6,7 @@ export const articles = [
       'A practical look at how modern applications run work behind the scenes — and what that means for designing products that feel responsive.',
     date: '2025',
     category: 'Product engineering',
-    href: 'https://medium.com/',
+    href: 'https://medium.com/@odeamvalerieosuamkpe',
     external: true,
   },
   {
@@ -16,7 +16,7 @@ export const articles = [
       'Breaking down how a vague task becomes a precise instruction — and the design discipline inside good prompt writing.',
     date: '2025',
     category: 'AI · Design',
-    href: 'https://medium.com/',
+    href: 'https://medium.com/@odeamvalerieosuamkpe',
     external: true,
   },
 ]

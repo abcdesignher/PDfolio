@@ -64,7 +64,7 @@ export const siteContent = {
     heading: 'More work on Behance',
     intro:
       'The wider archive — process studies, experiments, and earlier product work.',
-    cta: { label: 'See the full portfolio', href: 'https://www.behance.net/' },
+    cta: { label: 'See the full portfolio', href: 'https://behance.net/valtashvaltash' },
   },
 
   contact: {
@@ -76,12 +76,12 @@ export const siteContent = {
     socials: [
       {
         label: 'LinkedIn',
-        href: 'https://www.linkedin.com/',
+        href: 'https://linkedin.com/in/odeam-valerie-osuamkpe-',
         fallbackText: 'Connect on LinkedIn',
       },
       {
         label: 'Behance',
-        href: 'https://www.behance.net/',
+        href: 'https://behance.net/valtashvaltash',
         fallbackText: 'See work on Behance',
       },
     ],

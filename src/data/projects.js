@@ -12,7 +12,7 @@ export const projects = [
     },
     shortDescription:
       'An agriculture product that helps users manage farm operations and make clearer decisions from their data.',
-    behanceUrl: 'https://www.behance.net/',
+    behanceUrl: 'https://behance.net/valtashvaltash',
     tools: ['Product design', 'UX', 'UI', 'Design systems', 'Prototyping'],
     problem:
       'Agriculture work involves scattered information — records, weather, inputs, finances — spread across tools and paper. Decisions get made from incomplete context.',
@@ -51,7 +51,7 @@ export const projects = [
     },
     shortDescription:
       'An AI personal finance assistant that helps people understand their money and make confident decisions.',
-    behanceUrl: 'https://www.behance.net/',
+    behanceUrl: 'https://behance.net/valtashvaltash',
     tools: ['Product design', 'UX', 'UI', 'AI product design', 'Prototyping'],
     problem:
       'Personal finance tools tend to show numbers without meaning. People want to know what to do next, not just what happened.',
@@ -90,7 +90,7 @@ export const projects = [
     },
     shortDescription:
       'A goal and habit product that turns intentions into a focused, achievable plan.',
-    behanceUrl: 'https://www.behance.net/',
+    behanceUrl: 'https://behance.net/valtashvaltash',
     tools: ['Product design', 'UX', 'UI', 'Motion design'],
     problem:
       'Goal-setting apps often focus on recording — streaks, charts, and logs. People get motivation at the start but lose momentum when the plan does not adapt to real life.',
